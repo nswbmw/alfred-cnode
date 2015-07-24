@@ -1,0 +1,14 @@
+{
+  "name": "alfred-cnode",
+  "description": "alfred workflow for cnodejs.org",
+  "version": "1.0.0",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "cnode"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nswbmw/alfred-cnode.git"
+  }
+}

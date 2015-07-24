@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.nswbmw.cnode.alfred</string>
+	<key>category</key>
+	<string>Internet</string>
+	<key>connections</key>
+	<dict>
+		<key>D12F5D03-9AD7-4EA2-BD6C-27D675C862B6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E7FC86EE-75F2-465F-840B-8DF61B566B6E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>nswbmw</string>
+	<key>description</key>
+	<string>Node.js 专业中文社区</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>cnode</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>plusspaces</key>
+				<false/>
+				<key>url</key>
+				<string>https://cnodejs.org/topic/{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>E7FC86EE-75F2-465F-840B-8DF61B566B6E</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>cnode</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading...</string>
+				<key>script</key>
+				<string># -*- coding: UTF-8 -*-
+
+import urllib2
+import json
+import string
+
+BASEURL = 'https://cnodejs.org'
+URL = 'https://cnodejs.org/api/v1/topics?limit=20&amp;mdrender=false'
+TAB = { u'good': u'精华', u'share': u'分享', 'ask': u'问答', u'job': u'招聘' }
+
+def main():
+    query = '{query}'
+    if not query.strip() or query not in ['all', 'good', 'share', 'ask', 'job']:
+        query = 'all'
+
+    data = json.loads(urllib2.urlopen(URL + '&amp;tab=' + query).read(), encoding='utf-8')[u'data']
+    result = ['&lt;?xml version="1.0"?&gt;&lt;items&gt;']
+    for i in range(len(data)):
+        item = '&lt;item uid="' + data[i][u'id'] + '" arg="' + data[i][u'id'] + '"&gt;'
+        try:
+            tab = data[i][u'tab']
+        except:
+            tab = u'share'
+        title = '&lt;title&gt;[' + TAB[tab] + '] ' + data[i][u'title'] + '&lt;/title&gt;'
+        subtitle = '&lt;subtitle&gt;' + u'阅读: ' + str(data[i][u'visit_count']) + u' | 回复: ' + str(data[i][u'reply_count']) + u' | 最后回复: ' + data[i][u'last_reply_at'][11:16] + '&lt;/subtitle&gt;'
+        icon = '&lt;icon&gt;icon.png&lt;/icon&gt;'
+        result.append(item + title + subtitle + icon + '&lt;/item&gt;')
+
+    result.append('&lt;/items&gt;')
+    print(string.join(result, ''))
+
+if __name__ == "__main__":
+    main()</string>
+				<key>subtext</key>
+				<string>Node.js 专业中文社区</string>
+				<key>title</key>
+				<string>CNode</string>
+				<key>type</key>
+				<integer>3</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>D12F5D03-9AD7-4EA2-BD6C-27D675C862B6</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>D12F5D03-9AD7-4EA2-BD6C-27D675C862B6</key>
+		<dict>
+			<key>ypos</key>
+			<real>50</real>
+		</dict>
+		<key>E7FC86EE-75F2-465F-840B-8DF61B566B6E</key>
+		<dict>
+			<key>ypos</key>
+			<real>50</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>nswbmw.com</string>
+</dict>
+</plist>
