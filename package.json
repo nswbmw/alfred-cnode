@@ -1,7 +1,7 @@
 {
   "name": "alfred-cnode",
   "description": "alfred workflow for cnodejs.org",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "keywords": [
     "alfred",
     "workflow",

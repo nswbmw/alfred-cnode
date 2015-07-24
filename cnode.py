@@ -6,7 +6,7 @@ import json
 
 BASEURL = u'https://cnodejs.org'
 URL = u'https://cnodejs.org/api/v1/topics?limit=20&mdrender=false'
-TAB = { u'good': u'精华', u'share': u'分享', 'ask': u'问答', u'job': u'招聘', }
+TAB = { u'good': u'精华', u'share': u'分享', 'ask': u'问答', u'job': u'招聘' }
 
 def main():
     query = u'{query}'
